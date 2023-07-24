@@ -6,10 +6,8 @@ import (
 )
 
 func main() {
-	s2 := MinWindow("ADOBECODEBANC", "ABC")
-	s := MinWindow("a", "a")
-	s3 := MinWindow("a", "aa")
-	fmt.Println(s2, s, s3)
+	i := MaxMatrixArea([]int{2, 1, 5, 6, 2, 3})
+	fmt.Println(i)
 }
 
 // CanSplit 判断数组是否能分成两个和相等的子数组
@@ -248,4 +246,25 @@ func MinWindow(s, t string) string {
 		r++
 	}
 	return minStr
+}
+
+func MaxMatrixArea(heights []int) int {
+	maxArea := 0
+	max := func(i, j int) int {
+		if i > j {
+			return i
+		}
+		return j
+	}
+	for i := 0; i < len(heights); i++ {
+		l, r := i, i
+		for l > 0 && heights[l] >= heights[i] {
+			l--
+		}
+		for r < len(heights) && heights[r] >= heights[i] {
+			r++
+		}
+		maxArea = max(maxArea, heights[i]*(r-l-1))
+	}
+	return maxArea
 }
