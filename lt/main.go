@@ -8,6 +8,8 @@ import (
 func main() {
 	i := MaxMatrixArea([]int{2, 1, 5, 6, 2, 3})
 	fmt.Println(i)
+	i2 := Max1MatrixArea([][]int{{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}})
+	fmt.Println(i2)
 }
 
 // CanSplit 判断数组是否能分成两个和相等的子数组
@@ -265,6 +267,57 @@ func MaxMatrixArea(heights []int) int {
 			r++
 		}
 		maxArea = max(maxArea, heights[i]*(r-l-1))
+	}
+	return maxArea
+}
+
+func Max1MatrixArea(matrix [][]int) int {
+	maxArea := 0
+	rows := len(matrix)
+	if rows <= 0 {
+		return 0
+	}
+	max := func(i, j int) int {
+		if i > j {
+			return i
+		}
+		return j
+	}
+	min := func(i, j int) int {
+		if i < j {
+			return i
+		}
+		return j
+	}
+
+	cols := len(matrix[0])
+	// 纯暴力解法，遍历每个全1子矩阵，获取最大的面积
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			if matrix[i][j] != 1 {
+				continue
+			}
+			// 以 i,j 为左上角的全1矩阵的最大面积和当前矩阵的最小长度，两者之间没有关系
+			curMaxArea := 0
+			curMinLength := cols
+			// 遍历数组的时候不要使用三段式 for 循环，改用 while 循环，这样可以避免数组越界的问题，在 go 语言里就是使用 for 循环的时候不要使用循环条件而是使用 break 跳出循环
+			k, l := i, j
+			for {
+				for {
+					if l >= cols || matrix[k][l] != 1 {
+						curMinLength = min(curMinLength, l-j)
+						curMaxArea = max(curMaxArea, curMinLength*(k-i+1))
+						break
+					}
+					l++
+				}
+				k++
+				if k >= rows || matrix[k][j] != 1 {
+					break
+				}
+			}
+			maxArea = max(maxArea, curMaxArea)
+		}
 	}
 	return maxArea
 }
