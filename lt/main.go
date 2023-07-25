@@ -403,3 +403,29 @@ func IslandsCount(nums [][]int) int {
 	}
 	return res
 }
+
+// 排序链表
+func SortList(list *ListNode) *ListNode {
+	mergeList := func(l1, l2 *ListNode) *ListNode {
+		if l1 == nil {
+			return l2
+		}
+		if l2 == nil {
+			return l1
+		}
+		dummyHead := &ListNode{}
+		curNode := dummyHead.Next
+		p1, p2 := l1, l2
+		for p1 != nil && p2 != nil {
+			if p1.Val < p2.Val {
+				curNode = p1
+				p1 = p1.Next
+			} else {
+				curNode = p2
+				p2 = p2.Next
+			}
+			curNode = curNode.Next
+		}
+	}
+
+}

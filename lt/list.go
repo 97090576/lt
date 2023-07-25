@@ -1,6 +1,6 @@
 package main
 
 type ListNode struct {
-	Val  interface{}
+	Val  int
 	Next *ListNode
 }
