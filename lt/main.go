@@ -211,6 +211,7 @@ func MergeAscLists(lists []*ListNode) *ListNode {
 	return dummyHead.Next
 }
 
+// s = "a", t = "b" 错误
 func MinWindow(s, t string) string {
 	if len(s) < len(t) {
 		return ""
@@ -250,6 +251,7 @@ func MinWindow(s, t string) string {
 	return minStr
 }
 
+// 纯暴力的解法会超出时间限制，需要优化
 func MaxMatrixArea(heights []int) int {
 	maxArea := 0
 	max := func(i, j int) int {
@@ -260,7 +262,7 @@ func MaxMatrixArea(heights []int) int {
 	}
 	for i := 0; i < len(heights); i++ {
 		l, r := i, i
-		for l > 0 && heights[l] >= heights[i] {
+		for l >= 0 && heights[l] >= heights[i] {
 			l--
 		}
 		for r < len(heights) && heights[r] >= heights[i] {
@@ -270,6 +272,11 @@ func MaxMatrixArea(heights []int) int {
 	}
 	return maxArea
 }
+
+
+/*
+[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+*/
 
 func Max1MatrixArea(matrix [][]int) int {
 	maxArea := 0
