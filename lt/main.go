@@ -458,3 +458,20 @@ func KthElement(nums []int, k int) int {
 	}
 	return 0
 }
+
+func MoslemsList(list *ListNode) bool {
+	var nums []int
+	for list != nil {
+		nums = append(nums, list.Val)
+		list = list.Next
+	}
+	l, r := 0, len(nums)
+	for l < r {
+		if nums[l] != nums[r] {
+			return false
+		}
+		l++
+		r--
+	}
+	return true
+}
