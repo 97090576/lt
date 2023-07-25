@@ -10,6 +10,8 @@ func main() {
 	fmt.Println(i)
 	i2 := Max1MatrixArea([][]int{{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}})
 	fmt.Println(i2)
+	s := MinWindow("aadbaaddd", "aab")
+	fmt.Println(s)
 }
 
 // CanSplit 判断数组是否能分成两个和相等的子数组
@@ -213,9 +215,6 @@ func MergeAscLists(lists []*ListNode) *ListNode {
 
 // s = "a", t = "b" 错误
 func MinWindow(s, t string) string {
-	if len(s) < len(t) {
-		return ""
-	}
 	f2 := func(s, t map[byte]int) bool {
 		for k, v := range t {
 			if s[k] < v {
@@ -232,9 +231,11 @@ func MinWindow(s, t string) string {
 	minStr := s
 	l := 0
 	r := 0
+	hit := false
 	for {
 		if f2(m, tByte) {
-			if r-l+1 < len(minStr) {
+			hit = true
+			if r-l < len(minStr) {
 				minStr = s[l:r]
 			}
 			m[s[l]]--
@@ -247,6 +248,9 @@ func MinWindow(s, t string) string {
 		}
 		m[s[r]]++
 		r++
+	}
+	if !hit {
+		return ""
 	}
 	return minStr
 }
