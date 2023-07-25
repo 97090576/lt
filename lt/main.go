@@ -426,6 +426,14 @@ func SortList(list *ListNode) *ListNode {
 			}
 			curNode = curNode.Next
 		}
+		return nil
 	}
+	return nil
+}
 
+// 选修课程
+func selectCourse(n int, pre [][]int) {
+	// 1. 做成环检测并将成环的课程剔除
+
+	// 2. 
 }
