@@ -5,13 +5,16 @@ import (
 	"math"
 )
 
+/*
+	1 0 1 0 0
+	1 0 1 1 1
+	1 1 1 1 1
+	1 0 0 1 0
+*/
+
 func main() {
-	i := MaxMatrixArea([]int{2, 1, 5, 6, 2, 3})
-	fmt.Println(i)
-	i2 := Max1MatrixArea([][]int{{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}})
+	i2 := Max1MatrixArea([][]int{{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 0, 0, 1, 0}})
 	fmt.Println(i2)
-	s := MinWindow("aadbaaddd", "aab")
-	fmt.Println(s)
 }
 
 // CanSplit 判断数组是否能分成两个和相等的子数组
@@ -277,10 +280,6 @@ func MaxMatrixArea(heights []int) int {
 	return maxArea
 }
 
-/*
-[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
-*/
-
 func Max1MatrixArea(matrix [][]int) int {
 	maxArea := 0
 	rows := len(matrix)
@@ -325,8 +324,10 @@ func Max1MatrixArea(matrix [][]int) int {
 				if k >= rows || matrix[k][j] != 1 {
 					break
 				}
+				l = j
 			}
 			maxArea = max(maxArea, curMaxArea)
+			fmt.Println(i, j, curMaxArea, curMinLength, maxArea)
 		}
 	}
 	return maxArea
