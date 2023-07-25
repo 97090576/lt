@@ -273,7 +273,6 @@ func MaxMatrixArea(heights []int) int {
 	return maxArea
 }
 
-
 /*
 [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
 */
@@ -327,4 +326,36 @@ func Max1MatrixArea(matrix [][]int) int {
 		}
 	}
 	return maxArea
+}
+
+func IntersectList(L1, L2 *ListNode) *ListNode {
+	if L1 == nil || L2 == nil {
+		return nil
+	}
+	len1, len2 := 0, 0
+	for p := L1; p != nil; p = p.Next {
+		len1++
+	}
+	for p := L2; p != nil; p = p.Next {
+		len2++
+	}
+	p1, p2 := L1, L2
+	if len1 > len2 {
+		for i := 0; i < len1-len2; i++ {
+			p1 = p1.Next
+		}
+	}
+	if len2 > len1 {
+		for i := 0; i < len2-len1; i++ {
+			p2 = p2.Next
+		}
+	}
+	for p1 != nil && p2 != nil {
+		if p1 == p2 {
+			return p1
+		}
+		p1 = p1.Next
+		p2 = p2.Next
+	}
+	return nil
 }
