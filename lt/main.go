@@ -364,3 +364,42 @@ func IntersectList(L1, L2 *ListNode) *ListNode {
 	}
 	return nil
 }
+
+func IslandsCount(nums [][]int) int {
+	rows := len(nums)
+	if rows == 0 {
+		return 0
+	}
+	cols := len(nums[0])
+	visited := make([][]bool, rows)
+	for i := range visited {
+		visited[i] = make([]bool, cols)
+	}
+	res := 0
+	var f func(i, j int)
+	f = func(i, j int) {
+		nums[i][j] = 0
+		if i > 0 && nums[i-1][j] == 1 {
+			f(i-1, j)
+		}
+		if i < rows-1 && nums[i+1][j] == 1 {
+			f(i+1, j)
+		}
+		if j > 0 && nums[i][j-1] == 1 {
+			f(i, j-1)
+		}
+		if j < cols-1 && nums[i][j+1] == 1 {
+			f(i, j+1)
+		}
+	}
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			if nums[i][j] == 0 {
+				continue
+			}
+			res++
+			f(i, j)
+		}
+	}
+	return res
+}
