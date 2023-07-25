@@ -435,5 +435,26 @@ func SortList(list *ListNode) *ListNode {
 func selectCourse(n int, pre [][]int) {
 	// 1. 做成环检测并将成环的课程剔除
 
-	// 2. 
+	// 2.
+}
+
+func KthElement(nums []int, k int) int {
+	if len(nums) < k {
+		return 0
+	}
+	// 维护一个 size = k 的最小堆，遍历结束的时候这个最小堆的堆顶就是第 K 大的元素 klogkO(N)
+	maxKEle := make([]int, 0, k)
+	kthEle := math.MaxInt
+	for _, v := range nums {
+		if len(maxKEle) < k {
+			maxKEle = append(maxKEle, v)
+			if v < kthEle {
+				kthEle = v
+			}
+		} else if v > kthEle {
+
+		}
+
+	}
+	return 0
 }
