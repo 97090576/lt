@@ -1,9 +1,53 @@
 package main
 
-// 堆是一种特殊的完全二叉树，而完全二叉树指除了最后一层都塞满的二叉树，最后一层也是从左到右塞的，所以可以使用数据来存储完全二叉树，不需要使用树节点，可以省去大量的指针存储，只需要存储值就行，而每个节点的子节点的索引位置是确定的，故可以直接通过索引访问
+type MinHeap []int
 
-type Heap interface {
-	Push(interface{})
-	Pop() interface{}
-	Pick() interface{}
+func (h MinHeap) Len() int {
+	return len(h)
+}
+func (h MinHeap) Less(i, j int) bool {
+	return h[i] < h[j]
+}
+func (h MinHeap) Swap(i, j int) {
+	h[i], h[j] = h[j], h[i]
+}
+func (h *MinHeap) Push(x int) {
+	*h = append(*h, x)
+	h.up(len(*h) - 1)
+}
+func (h *MinHeap) Pop() int {
+	old := *h
+	n := len(old)
+	x := old[0]
+	*h = old[1:n]
+	h.down(0)
+	return x
+}
+func (h *MinHeap) up(i int) {
+	for {
+		parent := (i - 1) / 2
+		if parent == i || !h.Less(i, parent) {
+			break
+		}
+		h.Swap(i, parent)
+		i = parent
+	}
+}
+func (h *MinHeap) down(i int) {
+	n := len(*h)
+	for {
+		left := 2*i + 1
+		if left >= n || left < 0 { // left < 0 after int overflow
+			break
+		}
+		child := left
+		if right := left + 1; right < n && h.Less(right, left) {
+			child = right
+		}
+		if !h.Less(child, i) {
+			break
+		}
+		h.Swap(i, child)
+		i = child
+	}
 }

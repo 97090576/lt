@@ -13,8 +13,8 @@ import (
 */
 
 func main() {
-	i2 := Max1MatrixArea([][]int{{1, 0, 1, 0, 0}, {1, 0, 1, 1, 1}, {1, 1, 1, 1, 1}, {1, 0, 0, 1, 0}})
-	fmt.Println(i2)
+	i := hmDistance(2, 4)
+	fmt.Println(i)
 }
 
 // CanSplit 判断数组是否能分成两个和相等的子数组
@@ -201,8 +201,8 @@ func MergeAscLists(lists []*ListNode) *ListNode {
 		minVal := math.MaxInt
 		// 这里是每次都遍历一次每个链表头找到最小的链表头然后将其放在合并后的链表最后面，明显是可以优化的，因为除了被选出来的链表头，其他的链表头都没有发生改变，不需要再重新比较一次大小，所以应该将其替换为最小堆或者是优先队列
 		for i, node := range lists {
-			if node != nil && node.Val.(int) < minVal {
-				minVal = node.Val.(int)
+			if node != nil && node.Val < minVal {
+				minVal = node.Val
 				minValIdx = i
 			}
 		}
@@ -406,28 +406,28 @@ func IslandsCount(nums [][]int) int {
 
 // 排序链表
 func SortList(list *ListNode) *ListNode {
-	mergeList := func(l1, l2 *ListNode) *ListNode {
-		if l1 == nil {
-			return l2
-		}
-		if l2 == nil {
-			return l1
-		}
-		dummyHead := &ListNode{}
-		curNode := dummyHead.Next
-		p1, p2 := l1, l2
-		for p1 != nil && p2 != nil {
-			if p1.Val < p2.Val {
-				curNode = p1
-				p1 = p1.Next
-			} else {
-				curNode = p2
-				p2 = p2.Next
-			}
-			curNode = curNode.Next
-		}
-		return nil
-	}
+	// mergeList := func(l1, l2 *ListNode) *ListNode {
+	// 	if l1 == nil {
+	// 		return l2
+	// 	}
+	// 	if l2 == nil {
+	// 		return l1
+	// 	}
+	// 	dummyHead := &ListNode{}
+	// 	curNode := dummyHead.Next
+	// 	p1, p2 := l1, l2
+	// 	for p1 != nil && p2 != nil {
+	// 		if p1.Val < p2.Val {
+	// 			curNode = p1
+	// 			p1 = p1.Next
+	// 		} else {
+	// 			curNode = p2
+	// 			p2 = p2.Next
+	// 		}
+	// 		curNode = curNode.Next
+	// 	}
+	// 	return nil
+	// }
 	return nil
 }
 
